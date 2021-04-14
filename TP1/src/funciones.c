@@ -11,7 +11,8 @@
 
 void menu(float A, float B)
 {
-	printf("\n*** MENU DE OPCIONES ***\n\nIngrese una opcion para operar\n");
+	printf("\n******** MENU DE OPCIONES ********\n");
+	printf("===========================================\n");
 	printf("1 Ingresar el primer operando \nA = %.2f\n",A);
 	printf("2 Ingresar el segundo operando \nB = %.2f\n",B);
 	printf("3 Calcular todas las operaciones\n");
@@ -22,7 +23,8 @@ void menu(float A, float B)
 	printf("    e) Calcular el factorial (A)\n");
 	printf("    f) Calcular el factorial (B)\n");
 	printf("4 Mostrar resultados\n");
-    printf("5 Salir");
+    printf("5 Salir\n");
+    printf("===========================================");
 }
 
 int getNumeroEntero(int*pResultado, char* mensaje, char*mensajeError, int minimo, int maximo, int reintentos)

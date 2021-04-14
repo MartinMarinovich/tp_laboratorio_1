@@ -34,7 +34,7 @@ int main(void) {
 		do {
 			 menu(A,B);
 
-			getNumeroEntero(&opcionMenu,"\n\nIngrese la opcion deseada","\nError numero incorrecto\n",1,5,3);
+			getNumeroEntero(&opcionMenu,"\nIngrese la opcion deseada\n","\nError numero incorrecto\n",1,5,3);
 
 			if(opcionMenu == -1)
 			{
