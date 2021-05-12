@@ -14,8 +14,13 @@
 #include <string.h>
 #include <conio.h>
 #include "ArrayEmployees.h"
+#include "utn.h"
 
 #define TAMANIO 1000
+#define NOMBRE 51
+#define APELLIDO 51
+#define CRITERIO1 0
+#define CRITERIO2 1
 
 int main() {
 
@@ -23,8 +28,8 @@ int main() {
 
 	Employee EmployeesList[TAMANIO];
 
-	char nombre[51];
-	char apellido[51];
+	char nombre[NOMBRE];
+	char apellido[APELLIDO];
 	float salario;
 	int sector;
 	int opcionesMenu;
@@ -50,7 +55,7 @@ int main() {
 		 {
 		 	 case 1:
 
-		 		 if(cargarDatosEmployee(nombre,apellido,&salario,&sector)==0)
+		 		 if(cargarDatosEmployee(nombre,apellido,&salario,&sector,NOMBRE,APELLIDO))
 		 		 {
 		 			id++;
 		 		   addEmployee(EmployeesList,TAMANIO,id,nombre,apellido,salario,sector);
@@ -61,42 +66,34 @@ int main() {
 		 		 {
 		 			 printf("\nError el empleado no pudo ser cargado");
 		 		 }
-
+		 		 system("pause");
 		 	 break;
 		 	 case 2:
-		 		 if(id > 0)
+		 		 if(verificarExistencia(EmployeesList,TAMANIO))
 		 		 {
-		 			system("cls");
-		 			printf("*** BAJAS ***\n");
-		 			printf("Ingrese la id del empleado que desea eleminar");
-		 			scanf("%d",&idBuscado);
-		 			printf("\n EL EMPLEADO A DAR DE BAJA ES EL SIGUIENTE \n");
 
-		 			auxId = findEmployeeById(EmployeesList,TAMANIO,idBuscado);
-		 			mostrarUnEmployee(EmployeesList,auxId);
+		 			mostrarEmployees(EmployeesList, TAMANIO);
 
-		 			printf("¿DESEA DAR DE BAJA AL EMPLEADO?\n1Si\n2No\n");
-		 			scanf("%d",&confirmarBaja);
-		 			system("pause");
-
-		 			if(confirmarBaja == 1)
+		 			if(utn_getNumero(&auxId,"Ingrese el ID del empleado\n","Error, ID inexistente\n",1, 1000, 3))
 		 			{
-		 				removeEmployee(EmployeesList,TAMANIO,auxId);
-		 				printf("Usted ha dado de baja al empleado exitosamente\n");
-		 				system("pause");
 
-		 			}else
-		 			{
-		 				printf("\nUsted ha cancelado la baja");
+		 				if(removeEmployee(EmployeesList, TAMANIO, auxId))
+		 				{
+		 					printf("Baja exitosa!\n");
+		 				}else
+		 				{
+		 					printf("ID inexistente\n");
+		 				}
 		 			}
+
 		 		 }else
 		 		 {
-		 			 printf("\nNo es posible realizar la baja ya que no hay ningun empleado");
+		 			 printf("No es posible realizar  bajas ya que no hay ningun empleado\n");
 		 		 }
-
+		 		system("pause");
 		 	 break;
 		 	 case 3:
-		 		 if(id > 0)
+		 		 if(verificarExistencia(EmployeesList,TAMANIO))
 		 		 {
 		 			 mostrarEmployees(EmployeesList,TAMANIO);
 		 			 printf("\nIngrese el id del empleado que desea modificar");
@@ -115,9 +112,10 @@ int main() {
 		 		 {
 		 			 printf("No hay empleados en la lista");
 		 		 }
+		 		system("pause");
 		 	 break;
 		 	 case 4:
-		 		 if(id>0)
+		 		 if(verificarExistencia(EmployeesList,TAMANIO))
 		 		 {
 		 		    mostrarEmployees(EmployeesList,TAMANIO);
 		 		    printf("\n");
@@ -127,6 +125,8 @@ int main() {
 		 		 {
 		 			 printf("No hay empleados para informar");
 		 		 }
+
+		 		system("pause");
 		 	 break;
 		 }
 

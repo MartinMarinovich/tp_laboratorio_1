@@ -65,7 +65,7 @@ int addEmployee(Employee* list, int lenght, int id, char name[],char lastName[],
  * return 0 si esta ok o 1 si salio mal
  */
 
-int cargarDatosEmployee(char* nombre,char* apellido,float* salario, int*sector);
+int cargarDatosEmployee(char* nombre, char *apellido, float *salario, int *sector, int sizeName,int sizeLastName);
 
 /*Brief muestra la lista de empleados recibiendo como parametro el array de lista de empleados y el tamanio del mismo
  * retorna 0 si se ejecuto correctamente 1 si no se pudo realizar
@@ -134,3 +134,10 @@ int removeEmployee(Employee* list, int lenght, int id);
  */
 
 int modificarEmployee(Employee* lista, int tamanio, int indice);
+
+/*Brief la funcion verifica la existencia de datos en el Array
+ * param lista el vector de empleados
+ * param lenght tamanio del vector
+ */
+
+int verificarExistencia(Employee* lista, int lenght);

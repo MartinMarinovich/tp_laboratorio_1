@@ -11,6 +11,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <conio.h>
+#include "utn.h"
 #include "ArrayEmployees.h"
 
 int menu(int *opcionMenu)
@@ -120,58 +121,23 @@ int mostrarEmployees(Employee* lista, int tamanio)
 	return retornoError;
 }
 
-int cargarDatosEmployee(char* nombre, char *apellido, float *salario, int *sector)
+int cargarDatosEmployee(char* nombre, char *apellido, float *salario, int *sector, int sizeName,int sizeLastName)
 {
-	int retornoError = -1;
-	char auxiliarDeChar[500];
+	int retornoError = 0;
+
 
 	if(nombre != NULL && apellido != NULL && salario != NULL && sector != NULL)
 	{
-		printf("Ingrese el nombre del empleado: ");
-		fflush(stdin);
-		gets(auxiliarDeChar);
-
-		while(strlen(auxiliarDeChar)>51)
+		if(utn_getCadena(nombre, sizeName, "Ingrese el nombre del empleado\n","Error, nombre demasiado largo\n" ,3)&&
+				utn_getCadena(apellido, sizeLastName, "Ingrese el apellido del empleado\n","Error, apellido demasiado largo\n" ,3)&&
+				utn_getNumero(sector, "Ingrese el sector del empleado\n 100 - 200","Error, sector inexistente", 100, 200, 3)&&
+				utn_getNumeroFloat(salario,"Ingrese el salario\n","Error, ingrese nuevamente el salario",0, 999999999999999.000, 3))
 		{
-			printf("El nombre esta fuera del parametro, ingreselo nuevamente");
-			fflush(stdin);
-			gets(auxiliarDeChar);
+			retornoError = 1;
 		}
 
-		strcpy(nombre,auxiliarDeChar);
 
-		printf("Ingrese el apellido del empleado: ");
-		fflush(stdin);
-		gets(auxiliarDeChar);
 
-		while(strlen(auxiliarDeChar)>51)
-		{
-			printf("El apellido esta fuera del parametro, ingreselo nuevamente");
-			fflush(stdin);
-			gets(auxiliarDeChar);
-		}
-
-		strcpy(apellido,auxiliarDeChar);
-
-		printf("Ingrese el sector al que pertenece: ");
-		scanf("%d", sector);
-
-		while(sector<0)
-		{
-			printf("El sector se encuentra fuera del rango, ingreselo nuevamente");
-			scanf("%d", sector);
-		}
-
-		printf("Ingrese el salario del empleado: ");
-		scanf("%f",salario);
-
-		while(salario<=0)
-		{
-			printf("El monto ingresado es inexistente, ingreselo nuevamente: ");
-			scanf("%f", salario);
-		}
-
-		retornoError = 0;
 	}
 	return retornoError;
 }
@@ -220,19 +186,21 @@ int modificarEmployee(Employee* lista, int tamanio, int indice)
 
 int removeEmployee(Employee* list, int lenght, int id)
 {
-	int retornoError = -1;
+	int retorno = 0;
 	int indice = 0;
 
 	if(list != NULL && lenght>0 && id>0)
 	{
 		indice = findEmployeeById(list,lenght,id);
-		if(indice!= -1)
+
+		if(indice != -1)
 		{
-			list[indice].isEmpty = 1;
+			list[indice].isEmpty = -1;
+			retorno = 1;
 		}
-		retornoError = 0;
+
 	}
-	return retornoError;
+	return retorno;
 }
 
 int buscarLibre(Employee* lista, int lenght)
@@ -268,3 +236,20 @@ int findEmployeeById(Employee* list, int lenght, int id)
 	return indice;
 }
 
+int verificarExistencia(Employee* lista, int lenght)
+{
+	int retorno = 0;
+
+	if(lista != NULL && lenght > 0)
+	{
+		for(int i = 0; i<lenght; i++)
+		{
+			if(lista[i].isEmpty == 0)
+			{
+				retorno = 1;
+
+			}
+		}
+	}
+	return retorno;
+}

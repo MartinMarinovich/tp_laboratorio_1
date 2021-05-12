@@ -56,6 +56,8 @@ int getNumeroEntero(int*pResultado, char* mensaje, char*mensajeError, int minimo
 	return retorno;
 }
 
+
+
 int getNumeroCalculadora(float*pResultado, char *mensaje, float minimo, float maximo)
 {
 	float bufferFloat;
@@ -72,6 +74,8 @@ int getNumeroCalculadora(float*pResultado, char *mensaje, float minimo, float ma
 
 	return retorno;
 }
+
+
 int dividir(float* pResultadoDivision, int dividendo, int divisor)
 {
 	int retorno = -1;

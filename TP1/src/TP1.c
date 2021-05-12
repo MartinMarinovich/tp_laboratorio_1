@@ -47,6 +47,8 @@ int main(void) {
 					case 1:
 					respuestaA = getNumeroCalculadora(&A,"Ingrese el primer operando\n",-999999,999999);
 
+
+
 					if(!respuestaA)
 					{
 						printf("Usted ingreso el primer operando correctamente\n\n");
@@ -62,6 +64,7 @@ int main(void) {
 					if(!respuestaA)
 					{
 						respuestaB = getNumeroCalculadora(&B,"Ingrese el segundo operando\n",-999999,999999);
+
 						if(!respuestaB)
 						{
 							flagCalculo = 0;
