@@ -19,8 +19,8 @@
 #define TAMANIO 1000
 #define NOMBRE 51
 #define APELLIDO 51
-#define CRITERIO1 0
-#define CRITERIO2 1
+#define ASCENDENTE 1
+#define DESCENDENTE 0
 
 int main() {
 
@@ -34,6 +34,7 @@ int main() {
 	int sector;
 	int opcionesMenu;
 	int auxMenu;
+	int bajaMenu;
 	int confirmarBaja;
 	int id = 0;
 	int idBuscado;
@@ -71,20 +72,37 @@ int main() {
 		 	 case 2:
 		 		 if(verificarExistencia(EmployeesList,TAMANIO))
 		 		 {
+		 			do{
 
-		 			mostrarEmployees(EmployeesList, TAMANIO);
+		 				printf("***MENU DE BAJAS***\n");
 
-		 			if(utn_getNumero(&auxId,"Ingrese el ID del empleado\n","Error, ID inexistente\n",1, 1000, 3))
-		 			{
+		 				mostrarEmployees(EmployeesList, TAMANIO);
+		 				utn_getNumero(&bajaMenu, "Ingrese la opcion deseada\n 1 Dar de baja un empleado\n 2 Salir","Opcion no valida\n",1, 2, 3);
 
-		 				if(removeEmployee(EmployeesList, TAMANIO, auxId))
+		 				if(bajaMenu == 1)
 		 				{
-		 					printf("Baja exitosa!\n");
-		 				}else
-		 				{
-		 					printf("ID inexistente\n");
-		 				}
-		 			}
+		 					if(utn_getNumero(&auxId,"Ingrese el ID del empleado\n","Error, ID inexistente\n",1, 1000, 3))
+		 					{
+		 						confirmarBaja = removeEmployee(EmployeesList, TAMANIO, auxId);
+
+		 						if(confirmarBaja)
+		 						{
+		 							printf("Baja exitosa!\n");
+		 						}else
+		 						{
+		 							printf("ID inexistente\n");
+		 						}
+
+		 						if(!verificarExistencia(EmployeesList,TAMANIO))
+		 						{
+		 							printf("No hay mas empleados para dar de baja!\n");
+		 							bajaMenu = 2;
+		 						}
+
+		 					}
+		 			  }
+
+		 			}while(bajaMenu != 2);
 
 		 		 }else
 		 		 {
@@ -117,8 +135,24 @@ int main() {
 		 	 case 4:
 		 		 if(verificarExistencia(EmployeesList,TAMANIO))
 		 		 {
-		 		    mostrarEmployees(EmployeesList,TAMANIO);
-		 		    printf("\n");
+
+		 			if(utn_getNumero(&auxMenu,"Ingrese el criterio por el cual desea ordenar\n0-Ascendente\n1-Descendente\n","Error, ingrese 0 o 1 para el criterio",0,1,3))
+		 			{
+		 				if(!auxMenu)
+		 				{
+		 					sortEmployees(EmployeesList, TAMANIO, ASCENDENTE);
+		 				}else
+		 				{
+		 					sortEmployees(EmployeesList, TAMANIO, DESCENDENTE);
+		 				}
+
+		 				mostrarEmployees(EmployeesList,TAMANIO);
+		 				mostrarInfoSalarios(EmployeesList,TAMANIO);
+		 			}else
+		 			{
+		 				printf("Error al mostrar los empleados\n");
+		 			}
+
 		 			 system("pause");
 
 		 		 }else

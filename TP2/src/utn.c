@@ -255,3 +255,4 @@ int esNombreValido(char* cadena, int len)
 	return retorno;
 }
 
+

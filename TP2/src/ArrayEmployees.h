@@ -141,3 +141,5 @@ int modificarEmployee(Employee* lista, int tamanio, int indice);
  */
 
 int verificarExistencia(Employee* lista, int lenght);
+int sortEmployees(Employee* list, int lenght, int order);
+int mostrarInfoSalarios(Employee* lista, int tamanio);

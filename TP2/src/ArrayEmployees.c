@@ -93,7 +93,7 @@ int mostrarUnEmployee(Employee* lista, int indice)
 
 	if(lista !=NULL && indice > -1)
 	{
-		printf("%4d  %10s  %10s  %.2f  %d\n",lista[indice].id,lista[indice].name,lista[indice].lastName,lista[indice].salary,lista[indice].sector);
+		printf("%4d  %10s     %10s             %.2f            %3d\n",lista[indice].id,lista[indice].name,lista[indice].lastName,lista[indice].salary,lista[indice].sector);
 		retornoError = 0;
 	}
 
@@ -104,8 +104,8 @@ int mostrarEmployees(Employee* lista, int tamanio)
 {
 	int retornoError = -1;
 
-	printf(" Id  Nombre  Apellido  Salario  Sector\n");
-	printf("---------------------------------------\n");
+	printf(" Id        Nombre         Apellido        Salario             Sector\n");
+	printf("-------------------------------------------------------------------------\n");
 	if(lista != NULL && tamanio>0)
 	{
 		for(int i = 0; i<tamanio; i++)
@@ -115,10 +115,57 @@ int mostrarEmployees(Employee* lista, int tamanio)
 				mostrarUnEmployee(lista,i);
 			}
 		}
-
+		printf("\n");
 		retornoError = 0;
 	}
 	return retornoError;
+}
+
+int mostrarInfoSalarios(Employee* lista, int tamanio)
+{
+	int retorno = -1;
+	int flag = 0;
+	float mayor;
+	float acumuladorSalarios = 0;
+	float salarios[tamanio];
+	float promedioSalario;
+
+	if(lista != NULL && tamanio>0)
+	{
+		printf("**** INFORME SALARIOS ****\n");
+		printf("---------------------------\n");
+
+		for(int i = 0; i<tamanio; i++)
+		{
+			if(lista[i].isEmpty == 0)
+			{
+
+				retorno = 1;
+				salarios[i] = lista[i].salary;
+				acumuladorSalarios = lista[i].salary;
+				promedioSalario = acumuladorSalarios / i;
+
+			}
+		}
+
+
+		for(int i = 0; i<tamanio; i++)
+		{
+			if(mayor < salarios[i] || flag == 0)
+			{
+				mayor = salarios[i];
+				flag = 1;
+			}
+		}
+
+		printf("El total de los salarios es de: $%.2f\n",acumuladorSalarios);
+		printf("El mayor de los salarios es de: $%.2f\n",mayor);
+		printf("El salario promedio de los empleados es de: $%.2f\n",promedioSalario);
+
+	}
+
+
+	return retorno;
 }
 
 int cargarDatosEmployee(char* nombre, char *apellido, float *salario, int *sector, int sizeName,int sizeLastName)
@@ -253,3 +300,51 @@ int verificarExistencia(Employee* lista, int lenght)
 	}
 	return retorno;
 }
+
+int sortEmployees(Employee* list, int lenght, int order)
+{
+	int retorno = 0;
+	Employee auxEmployee;
+
+
+	if(list != NULL && lenght >0 && ( order == 1 || order == 0))
+	{
+		retorno = 1;
+
+
+
+		for(int i = 0; i<lenght-1; i++)
+		{
+			for(int j = i+1; j <lenght;j++)
+			{
+
+				if((strcmp(list[i].lastName,list[j].lastName)<0 && order== 1) || (strcmp(list[i].lastName,list[j].lastName)>0 && order== 0))
+				{
+					auxEmployee = list[i];
+					list[i] = list[j];
+					list[j] = auxEmployee;
+
+
+				}else
+				{
+					if(strcmp(list[i].lastName,list[j].lastName) == 0)
+					{
+
+						if((list[i].sector>list[j].sector && order== 0) || (list[i].sector<list[j].sector && order== 1))
+						{
+							auxEmployee = list[i];
+							list[i] = list[j];
+							list[j] = auxEmployee;
+
+
+						}
+					}
+
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+
