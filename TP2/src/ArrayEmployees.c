@@ -16,9 +16,9 @@
 
 int menu(int *opcionMenu)
 {
-	int opcion;
+
 	int retornoError = 0;
-	system("cls");
+
 
 	printf("\n*** MENU DE OPCIONES ***\n\n");
 	printf("-----------------------------------\n");
@@ -29,14 +29,10 @@ int menu(int *opcionMenu)
 	printf("   4 INFORMAR\n");
 	printf("   5 SALIR\n");
 	printf("-----------------------------------\n");
-	scanf("%d",&opcion);
 
-	if(opcion<1 && opcion>5)
+	if(utn_getNumero(opcionMenu,"Ingrese la opcion deseada\n","Error, re ingrese la opcion\n",1, 5, 4))
 	{
-		retornoError = -1;
-	}else
-	{
-		*opcionMenu = opcion;
+		retornoError = 1;
 	}
 
 	return retornoError;
@@ -125,10 +121,11 @@ int mostrarInfoSalarios(Employee* lista, int tamanio)
 {
 	int retorno = -1;
 	int flag = 0;
+	int contador = 0;
+	int contSalarioMayor = 0;
 	float mayor;
 	float acumuladorSalarios = 0;
-	float salarios[tamanio];
-	float promedioSalario;
+	float promedioSalario = 0;
 
 	if(lista != NULL && tamanio>0)
 	{
@@ -141,26 +138,31 @@ int mostrarInfoSalarios(Employee* lista, int tamanio)
 			{
 
 				retorno = 1;
-				salarios[i] = lista[i].salary;
-				acumuladorSalarios = lista[i].salary;
-				promedioSalario = acumuladorSalarios / i;
+				acumuladorSalarios += lista[i].salary;
+				contador++;
 
 			}
 		}
 
 
+
+
+		promedioSalario = (float) acumuladorSalarios / contador;
+
 		for(int i = 0; i<tamanio; i++)
 		{
-			if(mayor < salarios[i] || flag == 0)
+			if((mayor < lista[i].salary && lista[i].isEmpty == 0 )||( flag == 0))
 			{
-				mayor = salarios[i];
+				mayor = lista[i].salary;
+				contSalarioMayor++;
 				flag = 1;
 			}
 		}
 
-		printf("El total de los salarios es de: $%.2f\n",acumuladorSalarios);
-		printf("El mayor de los salarios es de: $%.2f\n",mayor);
-		printf("El salario promedio de los empleados es de: $%.2f\n",promedioSalario);
+		printf("El total de los salarios es de: $%.4f\n",acumuladorSalarios);
+		printf("El mayor de los salarios es de: $%.4f\n",mayor);
+		printf("El salario promedio de los empleados es de: $%.4f\n",promedioSalario);
+		printf("La cantidad de empleados que superan el sueldo promedio es de: %d\n",contSalarioMayor);
 
 	}
 
@@ -347,4 +349,5 @@ int sortEmployees(Employee* list, int lenght, int order)
 
 	return retorno;
 }
+
 
