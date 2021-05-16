@@ -20,6 +20,7 @@ typedef struct{
 }Employee;
 
 #endif /* ARRAYEMPLOYEES_H_ */
+
 /*Breif La funcion menu se ejecuta para mostrar un menu de opciones que el usuario debe elegir
  * retorna 0 si se ejecuto correctamente
  * 1 si no se pudo realizar, se obtiene el resultado mediante un puntero.
@@ -34,7 +35,7 @@ int menu(int *opcionMenu);
  * 1 si no se pudo realizar
  *
  * param Employee lista (lista de empleados)
- * param tama�ao del array que pasamos por referencia
+ * param tamañao del array que pasamos por referencia
  * return 0 si esta ok o 1 si salio mal
  */
 int initEmployee(Employee* list, int lenght);
@@ -102,7 +103,7 @@ int buscarLibre(Employee* list, int lenght);
  *retorna el indice el empleado buscado
  *
  * param Employee list array con la lista de empleados
- * param Lenght tama�o del array
+ * param Lenght tamaño del array
  * param Id identificacion del empleado buscado
  *
  * return indice relacionado al empleado buscado
@@ -115,7 +116,7 @@ int findEmployeeById(Employee* list, int lenght, int id);
  *retorna 0 si se ejecuto correctamente 1 si no se pudo realizar
  *
  * param Employee list array de empleados
- * param Lenght tama�o del array
+ * param Lenght tamaño del array
  * param Id identificacion del empleado buscado
  *
  *return 0 si esta ok o 1 si salio mal
@@ -127,7 +128,7 @@ int removeEmployee(Employee* list, int lenght, int id);
  * retorna 0 si se ejecuto correctamente 1 si no se pudo realizar
  *
  * param Employee list array de empleados
- * param Lenght tama�o del array
+ * param Lenght tamaño del array
  * param Indice posicion del id del empleado buscado
  *
  * return 0 si esta ok o 1 si salio mal
@@ -141,5 +142,19 @@ int modificarEmployee(Employee* lista, int tamanio, int indice);
  */
 
 int verificarExistencia(Employee* lista, int lenght);
+
+/*Brief la funcion ordena el array de empleados recibiendo el tamaño y el criterio de ordenamiento
+ * param lista de empleados estructura
+ * param tamanio de la lista
+ * param criterio de ordenamiento
+ * return 1 si salio bien 0 si salio mal
+ */
+
 int sortEmployees(Employee* list, int lenght, int order);
+
+/*Brief la funcion informa los datos de la nomina de empleadoos recibiendo la lista y el tamanio
+* param lista de empleados estructura
+* param tamanio de la lista
+* return 1 si salio bien 0 si salio mal
+*/
 int mostrarInfoSalarios(Employee* lista, int tamanio);
