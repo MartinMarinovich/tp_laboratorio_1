@@ -120,10 +120,9 @@ int mostrarEmployees(Employee* lista, int tamanio)
 int mostrarInfoSalarios(Employee* lista, int tamanio)
 {
 	int retorno = -1;
-	int flag = 0;
+
 	int contador = 0;
 	int contSalarioMayor = 0;
-	float mayor;
 	float acumuladorSalarios = 0;
 	float promedioSalario = 0;
 
@@ -151,16 +150,13 @@ int mostrarInfoSalarios(Employee* lista, int tamanio)
 
 		for(int i = 0; i<tamanio; i++)
 		{
-			if((mayor < lista[i].salary && lista[i].isEmpty == 0 )||( flag == 0))
+			if((promedioSalario < lista[i].salary && lista[i].isEmpty == 0 ))
 			{
-				mayor = lista[i].salary;
 				contSalarioMayor++;
-				flag = 1;
 			}
 		}
 
 		printf("El total de los salarios es de: $%.4f\n",acumuladorSalarios);
-		printf("El mayor de los salarios es de: $%.4f\n",mayor);
 		printf("El salario promedio de los empleados es de: $%.4f\n",promedioSalario);
 		printf("La cantidad de empleados que superan el sueldo promedio es de: %d\n",contSalarioMayor);
 
