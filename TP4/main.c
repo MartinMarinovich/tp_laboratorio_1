@@ -265,12 +265,15 @@ int main()
 
     controller_ListNotebook(listaDeNotebooks2);
 
+    printf("Lista ordenada por prrecio\n");
+
     printf("\n\n");
     printf("\n|-----------------------LL_FILTER-----------------------|\n\n");
 
    listaDeNotebooks2 = ll_filter(listaDeNotebooks,notebook_filtrarPorAnio);
 
     controller_ListNotebook(listaDeNotebooks2);
+    printf("Lista filtrada por anio mayor al 2000\n");
     controller_saveAsText("listrafiltradaporanio.csv",listaDeNotebooks2);
 
 
